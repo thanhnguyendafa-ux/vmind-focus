@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vmind - Vocabulary Learning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    @keyframes pulse-bg {
+      0%, 100% { background-color: rgba(22, 163, 74, 0.2); }
+      50% { background-color: rgba(22, 163, 74, 0.4); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    @keyframes ai-glow {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        50% { box-shadow: 0 0 8px 2px rgba(245, 158, 11, 0.4); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideOutLeft {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(-25%); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(25%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+    .animate-slideInUp { animation: slideInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+    .animate-pulse-bg { animation: pulse-bg 2s infinite; }
+    .animate-shake { animation: shake 0.3s ease-in-out; }
+    .animate-ai-glow { animation: ai-glow 2.5s infinite; }
+    .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+    .animate-slide-out-left { animation: slideOutLeft 0.1s ease-in forwards; }
+    .animate-slide-in-right { animation: slideInRight 0.1s ease-out forwards; }
+
+
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+
+    @keyframes card-flip-out-next {
+      from { transform: rotateY(0deg); opacity: 1; }
+      to { transform: rotateY(-90deg); opacity: 0; }
+    }
+    .animate-card-flip-out-next { animation: card-flip-out-next 0.15s ease-in forwards; }
+
+    @keyframes card-flip-in-next {
+      from { transform: rotateY(90deg); opacity: 0; }
+      to { transform: rotateY(0deg); opacity: 1; }
+    }
+    .animate-card-flip-in-next { animation: card-flip-in-next 0.15s ease-out forwards; }
+
+    @keyframes card-flip-out-prev {
+      from { transform: rotateY(0deg); opacity: 1; }
+      to { transform: rotateY(90deg); opacity: 0; }
+    }
+    .animate-card-flip-out-prev { animation: card-flip-out-prev 0.15s ease-in forwards; }
+
+    @keyframes card-flip-in-prev {
+      from { transform: rotateY(-90deg); opacity: 0; }
+      to { transform: rotateY(0deg); opacity: 1; }
+    }
+    .animate-card-flip-in-prev { animation: card-flip-in-prev 0.15s ease-out forwards; }
+    
+    .card-container.no-transition .card-flip {
+      transition: none;
+    }
+    
+    /* Card flip transition */
+    .card-container.flipped .card-flip {
+      transform: rotateY(180deg);
+    }
+    .card-flip {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .card-front, .card-back {
+      -webkit-backface-visibility: hidden; /* Safari */
+      backface-visibility: hidden;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+    .truncate-2-lines {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  </style>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d', 950: '#052e16' },
+            secondary: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+            success: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a', 950: '#042f2e' },
+            error: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c', 800: '#991b1b', 900: '#7f1d1d', 950: '#450a0a' },
+            warning: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f', 950: '#451a03' },
+            info: { 50: '#ecfeff', 100: '#cffafe', 200: '#a5f3fc', 300: '#67e8f9', 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490', 800: '#155e75', 900: '#164e63', 950: '#083344' },
+            'background': '#FAF8F5',
+            'surface': '#ffffff',
+            'text-main': '#1e293b',
+            'text-subtle': '#64748b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Lora', 'serif'],
+          },
+        },
+      },
+    }
+  </script>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.45.0",
+    "zustand": "https://aistudiocdn.com/zustand@^4.5.4/index.js",
+    "zustand/": "https://aistudiocdn.com/zustand@^4.5.4/",
+    "zustand/middleware": "https://aistudiocdn.com/zustand@^4.5.4/middleware.js",
+    "@tanstack/react-query": "https://aistudiocdn.com/@tanstack/react-query@^5.51.1",
+    "@testing-library/react": "https://aistudiocdn.com/@testing-library/react@^16.3.0",
+    "vitest": "https://aistudiocdn.com/vitest@^4.0.8"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="antialiased font-sans">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
