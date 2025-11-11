@@ -20,3 +20,5 @@ View your app in AI Studio: https://ai.studio/apps/drive/1CcDOnCf0jE5swxu2cRz_t3
    `npm run dev`
 "# vmindgreen" 
 "# vmindgreen" 
+"# vmind-focus" 
+"# vmind-focus" 
